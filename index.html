@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --accent: #c8f04a;
+      --text: #f0ede6;
+      --muted: #6b6b6b;
+      --border: #222;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
+
+    nav ul a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,240,74,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+   .hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.2rem, 7vw, 6rem);
+  line-height: 1.1;
+  font-weight: 600;
+
+  letter-spacing: -0.02em;
+  text-rendering: optimizeLegibility;
+
+  margin-bottom: 1.8rem;
+
+  background: linear-gradient(180deg, #ffffff 60%, #c8f04a 140%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+      border: 2px solid var(--accent);
+      font-weight: 500;
+    }
+
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .scroll-line {
+      position: absolute;
+      bottom: 2.5rem; left: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .scroll-line::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--muted);
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-grid h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-grid p { color: var(--muted); margin-bottom: 1rem; }
+
+    .skills-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .skill-item {
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .skill-item:hover { border-color: var(--accent); color: var(--text); }
+    .skill-item::before { content: '◆'; font-size: 0.4rem; color: var(--accent); }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .project-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+
+    .project-img {
+      width: 100%; height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-img.p1 { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+    .project-img.p2 { background: linear-gradient(135deg, #0f3460, #533483); }
+    .project-img.p3 { background: linear-gradient(135deg, #1b1b2f, #2c2c54); }
+
+    .project-body { padding: 1.5rem; }
+
+    .project-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-body p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.2rem; }
+
+    .project-link {
+      text-decoration: none;
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .project-link:hover { border-color: var(--accent); }
+
+    /* CONTACT */
+    .contact-inner {
+      max-width: 600px;
+    }
+
+    .contact-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+    }
+
+    .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      padding: 1rem 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-link .icon { font-size: 1.1rem; width: 24px; text-align: center; }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul { gap: 1.2rem; }
+      .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .scroll-line { left: 1.5rem; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Mohanaprasanth<span>.</span></div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills"></a>Skills</li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Available for freelance</div>
+    <h1>Electrical Engineer & Web Developer</h1>
+    <p>I build clean, fast, and purposeful digital experiences — from concept to deployment.</p>
+    <div class="hero-btns">
+        <a href="#skills" class="btn bt-"
+      <a href="#projects" class="btn btn-primary">View Work</a>
+      <a href="#contact" class="btn btn-ghost">Let's Talk</a>
+    </div>
+    <div class="scroll-line">Scroll to explore</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About me</div>
+    <div class="about-grid">
+      <div>
+        <h2>Crafting interfaces people love to use</h2>
+        <p>I'm a full-stack developer. I care deeply about both the aesthetics and the engineering that makes them work.</p>
+        <p>When I'm not coding, I'm usually exploring design systems, contributing to open source, or reading about human-computer interaction.I am passionate about innovation, continuous learning, and building efficient, reliable systems. I enjoy working on projects that challenge my problem-solving abilities and enhance my technical expertise</p>
+        <br>
+        <a href="#contact" class="btn btn-primary">Download CV</a>
+      </div>
+      <div>
+        <p style="color: var(--muted); font-size: 0.8rem; margin-bottom: 1rem; letter-spacing: 0.1em; text-transform: uppercase;">Tech Stack</p>
+        <div class="skills-list">
+          <div class="skill-item">HTML & CSS</div>
+          <div class="skill-item">JavaScript</div>
+          <div class="skill-item">java</div>
+          <div class="skill-item">Python</div>
+          <div class="skill-item">C and C++</div>
+          <div class="skill-item">Git & GitHub</div>
+          <div class="skill-item">Circuit Design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Selected work</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-img p1">🛒</div>
+        <div class="project-body">
+          <div class="project-tag">E-commerce · React · Node</div>
+          <h3>ShopFlow</h3>
+          <p>A modern e-commerce platform with real-time inventory, cart management, and Stripe payments.</p>
+          <a href="#" class="project-link"></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img p2">📊</div>
+        <div class="project-body">
+          <div class="project-tag">Dashboard </div>
+          <h3>Task Management Application</h3>
+          <p>The Task Management Application is a full-stack web-based solution designed to help users efficiently create, organize, update, and track their daily tasks. The primary goal of this project is to improve productivity by providing a structured and user-friendly platform for managing personal or professional work.</p>
+          <a href="#" class="project-link"></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-img p3">💬</div>
+        <div class="project-body">
+          <div class="project-tag">battery monitoring system</div>
+          <h3>Analysis the battery health of e vehicle</h3>
+          <p>A real-time monitoring system that gives battery health and issues in the battery </p>
+          <a href="#" class="project-link"></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Get in touch</div>
+    <div class="contact-inner">
+      <h2>Let's build something great together</h2>
+      <p>I'm open to freelance projects, full-time roles, and interesting collaborations. Drop me a message anytime.</p>
+      <div class="contact-links">
+        <a href="mailto:mohanaprasanth591@gmail.com" class="contact-link">
+          <span class="icon">✉</span> mohanaprasanth591@gmail.com
+        </a>
+        <a href="https://github.com/mohanaprasanthc" class="contact-link" target="_blank">
+          <span class="icon">⌥</span> github.com/mohanaprasanth
+        </a>
+        <a href="https://www.linkedin.com/in/mohanaprasanth-c-254b0b3a4?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="contact-link" target="_blank">
+          <span class="icon">in</span> linkedin.com/in/mohanaprasanth c
+        </a>
+      </div>
+    </div>
+  </section>
+
+ 
+</body>
+</html>
